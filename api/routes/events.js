@@ -213,10 +213,12 @@ router.get('/', async (req, res) => {
   const where = [`e.status = 'active'`];
   const params = [];
 
-  // Home page: only what is still coming up. When the user supplies a date we
-  // honour it instead, so a search can look at any period.
+  // Home page: only what is still coming up. When the user picks a date in the
+  // search form it means "on this day", so it replaces the CURDATE() rule
+  // rather than widening it - otherwise asking for one day would return every
+  // later event as well.
   if (criteria.date) {
-    where.push('e.event_date >= ?');
+    where.push('e.event_date = ?');
     params.push(criteria.date);
   } else {
     where.push('e.event_date >= CURDATE()');

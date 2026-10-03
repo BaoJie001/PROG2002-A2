@@ -213,14 +213,21 @@ The server therefore cannot change data, which is itself a safety property.
 | `GET /api/events/past` | 200, finished events | 200, 4 events |
 | `GET /api/events?location=Southport` | 200, location matches | 200, 1 event |
 | `GET /api/events?category=2` | 200, Gala Dinner only | 200, 1 event |
-| `GET /api/events?date=2027-01-01` | 200, from that date on | 200, 3 events |
-| `GET /api/events?date=…&location=…&category=4` | 200, all three applied | 200, 2 events |
+| `GET /api/events?date=2026-11-07` | 200, events on that day | 200, 1 event (Coastal Food Festival) |
+| `GET /api/events?date=2027-01-01` | 200, empty is valid | 200, 0 events |
+| `GET /api/events?date=2026-11-21&location=Gold Coast&category=4` | 200, all three applied | 200, 1 event (Voices for Kids) |
 | `GET /api/events/5` | 200, full detail joined | 200, with organisation + category |
 | `GET /api/events/999` | 404 | 404 `Event not found.` |
 | `GET /api/events/13` (suspended) | 404 | 404 `Event not found.` |
 | `GET /api/events/abc` | 400 | 400 `Event id must be a positive number.` |
 | `GET /api/events?date=notadate` | 400 | 400 `Date must be a real date…` |
 | `GET /api/categories` | 200 | 200, 6 categories with upcoming counts |
+
+A date typed into the search form means **on that day**, not *from that day onwards*. The
+first version used `event_date >= ?`, which meant asking for a single date returned every
+later event as well — correct SQL, but useless to someone looking for something to do on a
+particular weekend. It now uses `event_date = ?`, and only falls back to the
+`>= CURDATE()` rule when no date is supplied.
 
 ---
 
@@ -281,8 +288,9 @@ removed, and the modal is opened/closed by toggling a class.
 ### D.4 Validation and error handling
 
 * **Search page** – the location must be at least 2 characters; the date must
-  be well formed. Failures show a red message box instead of sending a useless
-  request.
+  be well formed; and a date in the past is rejected, because the searchable
+  list only contains events that have not happened yet. Failures show a red
+  message box instead of sending a useless request.
 * **Every fetch is caught.** A rejected Promise writes a readable message into
   the page: "Cannot reach the API. Make sure the server is running…".
 * **Empty results** get an explanatory message rather than a blank area.

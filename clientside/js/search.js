@@ -61,6 +61,18 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- 2. validate what the user typed ---------------------------- */
 
   /**
+   * Today as YYYY-MM-DD, built from the local calendar rather than UTC.
+   * Using toISOString() here would report yesterday for most of the
+   * afternoon in UTC+8 and reject a perfectly valid "today" search.
+   */
+  function todayISO() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return now.getFullYear() + '-' + month + '-' + day;
+  }
+
+  /**
    * @returns {{ valid: boolean, message: string, criteria: object }}
    */
   function readForm() {
@@ -72,6 +84,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (criteria.date && !/^\d{4}-\d{2}-\d{2}$/.test(criteria.date)) {
       return { valid: false, message: 'Please enter a valid date.', criteria: criteria };
+    }
+
+    // The list only contains events that have not happened yet, so a date in
+    // the past could never match anything. Rejecting it here saves a pointless
+    // request and explains why, instead of showing an empty grid.
+    if (criteria.date && criteria.date < todayISO()) {
+      return {
+        valid: false,
+        message:
+          'Please choose today or a future date. Events that have already '
+          + 'finished are listed on the home page.',
+        criteria: criteria,
+      };
     }
 
     if (criteria.location && criteria.location.length < 2) {
