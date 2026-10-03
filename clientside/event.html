@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event details - Giving Coast Charity Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== navigation (same on every page) ================ -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">🤝</span>
+        <span>Giving Coast</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search.html">Search Events</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ hero - filled in from the API for this event ============= -->
+  <section class="detail-hero">
+    <!-- Category banner, faded back so the text stays readable. -->
+    <img id="event-image" class="detail-hero-image" alt="" />
+    <div class="container detail-hero-text">
+      <span id="event-category" class="badge">Loading...</span>
+      <h1 id="event-name">Loading event...</h1>
+      <p id="event-summary" class="summary"></p>
+    </div>
+  </section>
+
+  <!-- ============================== content =============================== -->
+  <section class="section">
+    <div class="container">
+
+      <div id="event-message"></div>
+
+      <div id="event-content" class="detail-layout" hidden>
+
+        <!-- left column: the detail the attendee needs -->
+        <div>
+          <article class="panel">
+            <h2>About this event</h2>
+            <p id="event-description"></p>
+
+            <h3>What your ticket supports</h3>
+            <p id="event-purpose"></p>
+          </article>
+
+          <article class="panel">
+            <h2>Event details</h2>
+            <ul class="fact-list">
+              <li><span class="fact-key">📅 Date</span><span id="fact-date"></span></li>
+              <li><span class="fact-key">🕒 Time</span><span id="fact-time"></span></li>
+              <li><span class="fact-key">📍 Venue</span><span id="fact-venue"></span></li>
+              <li><span class="fact-key">🏙️ Location</span><span id="fact-location"></span></li>
+              <li><span class="fact-key">🏷️ Category</span><span id="fact-category"></span></li>
+              <li><span class="fact-key">🏢 Organiser</span><span id="fact-organiser"></span></li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- right column: ticket, goal, organiser -->
+        <div>
+          <div class="ticket-box">
+            <div id="ticket-price" class="ticket-price">-</div>
+            <p class="ticket-note">per person &middot; sold as a donation</p>
+            <button id="register-button" type="button" class="btn btn-accent">
+              Register
+            </button>
+          </div>
+
+          <article class="panel">
+            <h2>Goal vs progress</h2>
+            <div class="goal-figures">
+              <div>
+                <strong id="raised-amount">$0</strong><br />
+                raised
+              </div>
+              <div style="text-align:right">
+                <strong id="goal-amount">$0</strong><br />
+                goal
+              </div>
+            </div>
+            <div class="progress-track">
+              <div id="goal-fill" class="progress-fill" style="width:0%"></div>
+            </div>
+            <p id="goal-percentage" style="margin-top:10px"></p>
+          </article>
+
+          <article class="panel">
+            <h2>Hosted by</h2>
+            <div class="org-box">
+              <div id="org-icon" class="org-icon">🏢</div>
+              <div>
+                <h3 id="org-name" style="margin-top:0"></h3>
+                <p id="org-mission"></p>
+                <p id="org-contact"></p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== footer =============================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Giving Coast</h3>
+          <p>Charity event management for the Gold Coast community.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li>hello@givingcoast.org.au</li>
+            <li>(07) 5500 0000</li>
+            <li>12 Community Way, Southport QLD 4215</li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">
+        PROG2002 Web Development II - Assessment 2. This site is a student
+        project; the organisations and events shown are fictional.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============ modal shown when Register is clicked (A3 will replace) === -->
+  <div id="register-modal" class="modal-backdrop" role="dialog" aria-modal="true"
+       aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-icon">🚧</div>
+      <h2 id="modal-title">Registration</h2>
+
+      <!-- Required message for Assessment 2. -->
+      <p class="modal-notice">This feature is currently under construction.</p>
+
+      <!--
+        The registration form itself. It is rendered here so the ticket
+        information and the form the brief asks for are both visible, but every
+        field is disabled until Assessment 3 adds the POST /api/registrations
+        endpoint that would actually save it.
+      -->
+      <form id="register-form" class="register-form">
+        <div class="field">
+          <label for="reg-name">Full name</label>
+          <input type="text" id="reg-name" placeholder="Your name" disabled />
+        </div>
+        <div class="field">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" placeholder="you@example.com" disabled />
+        </div>
+        <div class="field">
+          <label for="reg-tickets">Tickets</label>
+          <select id="reg-tickets" disabled>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <p id="register-total" class="register-total"></p>
+      </form>
+
+      <button id="modal-close" type="button" class="btn">Close</button>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/event.js"></script>
+</body>
+</html>
