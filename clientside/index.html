@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - Giving Coast Charity Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== navigation (same on every page) ================ -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">🤝</span>
+        <span>Giving Coast</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="search.html">Search Events</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== hero - static organisation info ================ -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Charity events that bring our city together</h1>
+      <p class="mission">
+        "We believe a community changes when its people show up. Every fun run,
+        gala and concert on this site is a chance to turn an ordinary weekend
+        into something that matters."
+      </p>
+      <p>
+        Giving Coast is the events platform of four Gold Coast charities. We list
+        every fundraiser they run, so you can find a cause you care about, see
+        exactly what it is raising money for, and register in a couple of minutes.
+      </p>
+      <a class="btn btn-accent" href="search.html">Find an event</a>
+    </div>
+  </section>
+
+  <!-- ===================== static about / contact ========================= -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Who we are</h2>
+        <p>Four local charities, one shared calendar.</p>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>🏠 Our mission</h3>
+          <p>
+            To make giving simple and visible. Every event on this site shows its
+            fundraising goal and how far along it is, so you always know what your
+            ticket is paying for.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>🎯 What we fund</h3>
+          <p>
+            Emergency housing, school supplies and tutoring, dune restoration and
+            turtle monitoring, and mobile health clinics serving the coastal towns
+            north of the city.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>📞 Get in touch</h3>
+          <p>
+            Giving Coast Events Team<br />
+            hello@givingcoast.org.au<br />
+            (07) 5500 0000
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>📍 Where we work</h3>
+          <p>
+            12 Community Way, Southport QLD 4215<br />
+            Office hours: Monday to Friday, 9 am - 5 pm AEST
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== upcoming events - loaded from the API ================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Upcoming charity events</h2>
+        <p>Live from the events database - suspended events are never shown.</p>
+      </div>
+
+      <!-- Server messages (connection errors, empty results) land here. -->
+      <div id="upcoming-message"></div>
+
+      <div id="upcoming-grid" class="event-grid">
+        <!-- Shown until the API answers, then replaced by the real cards. -->
+        <div class="skeleton" style="height:220px"></div>
+        <div class="skeleton" style="height:220px"></div>
+        <div class="skeleton" style="height:220px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== past events - loaded from the API ================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Past events</h2>
+        <p>Events are marked as past automatically once their date has gone by.</p>
+      </div>
+
+      <div id="past-message"></div>
+
+      <div id="past-grid" class="event-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================== footer =============================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Giving Coast</h3>
+          <p>Charity event management for the Gold Coast community.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li>hello@givingcoast.org.au</li>
+            <li>(07) 5500 0000</li>
+            <li>12 Community Way, Southport QLD 4215</li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">
+        PROG2002 Web Development II - Assessment 2. This site is a student
+        project; the organisations and events shown are fictional.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Page scripts: shared helpers first, then the page logic. -->
+  <script src="js/api.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
