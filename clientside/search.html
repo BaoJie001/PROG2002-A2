@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Events - Giving Coast Charity Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== navigation (same on every page) ================ -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">🤝</span>
+        <span>Giving Coast</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search.html" aria-current="page">Search Events</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================== heading ============================== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Find a charity event</h1>
+      <p class="mission">
+        "The right cause is out there - you just have to be able to find it."
+      </p>
+      <p>
+        Filter by date, location or the kind of event you are after. Pick one
+        criterion or combine all three.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================== search form ============================= -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Client-side validation and API problems are reported here. -->
+      <div id="form-message"></div>
+
+      <form id="search-form" class="search-panel" novalidate>
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="filter-date">Date</label>
+            <input type="date" id="filter-date" name="date" />
+            <span class="hint">Shows events on this day or later.</span>
+          </div>
+
+          <div class="field">
+            <label for="filter-location">Location</label>
+            <input
+              type="text"
+              id="filter-location"
+              name="location"
+              placeholder="e.g. Southport"
+              maxlength="80"
+            />
+            <span class="hint">Matches the suburb, city or venue.</span>
+          </div>
+
+          <div class="field">
+            <label for="filter-category">Event category</label>
+            <!-- Filled in from GET /api/categories when the page loads. -->
+            <select id="filter-category" name="category">
+              <option value="">Loading categories...</option>
+            </select>
+            <span class="hint">Leave on "Any category" to skip this filter.</span>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Search events</button>
+          <button type="button" id="clear-button" class="btn btn-ghost">
+            Clear Filters
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================= results =============================== -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Results</h2>
+        <p id="result-count">Choose your criteria and press "Search events".</p>
+      </div>
+
+      <div id="result-message"></div>
+
+      <div id="result-grid" class="event-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================== footer =============================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Giving Coast</h3>
+          <p>Charity event management for the Gold Coast community.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li>hello@givingcoast.org.au</li>
+            <li>(07) 5500 0000</li>
+            <li>12 Community Way, Southport QLD 4215</li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">
+        PROG2002 Web Development II - Assessment 2. This site is a student
+        project; the organisations and events shown are fictional.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>
